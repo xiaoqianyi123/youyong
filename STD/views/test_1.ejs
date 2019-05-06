@@ -1,0 +1,15 @@
+<input type='file' id='fuck'>
+<div id='makelo' onclick='fuck()'>上传</div>
+
+<script>
+  function fuck()
+  {
+    var a=document.getElementById('fuck')
+    var form=new FormData()
+    form.append('pic',a.files[0])
+    var xhr=new XMLHttpRequest()
+    xhr.open('post','/student/upload')
+    xhr.send(form)
+
+  }
+</script>

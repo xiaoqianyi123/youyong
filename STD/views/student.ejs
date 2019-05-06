@@ -1,0 +1,277 @@
+<html><head>
+  <script>
+      var status=0 
+      function edit()
+  {
+    if(status==0)
+      {
+    var name=document.getElementById('w')
+    var xuehao=document.getElementById('e')
+    var banji=document.getElementById('r')
+    var xueyuan=document.getElementById('t')
+    name.contentEditable=true;
+    xuehao.contentEditable=true;
+    banji.contentEditable=true;
+    xueyuan.contentEditable=true
+    console.log(name.contenteditable)
+        status=1
+        var edit=document.getElementById('edit')
+        edit.innerHTML='确认修改'
+        return
+      }
+    if(status==1)
+      {
+        var name=document.getElementById('w')
+    var xuehao=document.getElementById('e')
+    var banji=document.getElementById('r')
+    var xueyuan=document.getElementById('t')
+    name.contentEditable=false;
+    xuehao.contentEditable=false;
+    banji.contentEditable=false;
+    xueyuan.contentEditable=false
+    var p=
+        {
+          name:name.innerHTML,
+          xuehao:xuehao.innerHTML,
+          banji:banji.innerHTML,
+          xueyuan:xueyuan.innerHTML
+          
+        }
+    p=JSON.stringify(p)
+    console.log(p)
+    var xhr = new XMLHttpRequest()
+      xhr.onreadyStateChange = function () {
+        if (xhr.readystate === 4) {
+          if (xhr.status === 304 || (xhr.status >= 200 && xhr.status < 300)) {
+            console.log('type: success, result: ', xhr.responseText)
+          } else {
+            console.log('type: error, errCode:', xhr.status)
+          }
+        }
+      }
+      var a={
+        student:'fuck',
+        score:87
+      }
+      xhr.open('post', '/teacher/student/edit', true)
+      xhr.setRequestHeader("Content-Type","application/json");
+      
+      xhr.send(p)
+        var edit=document.getElementById('edit')
+        edit.innerHTML='修改信息'
+        status=0
+      }
+  }
+     
+</script>
+<style>
+  #chengji
+{
+display:inline-block;
+width:350px;
+text-align:center;
+border:1px solid #c8cccf;
+  border-radius:4px;
+text-decoration:none;
+  color:black;
+  background: #FFFAFA ;
+  font-weight: bold
+  
+}
+
+#kecheng
+{
+display:inline-block;
+width:173px;
+text-align:center;
+ border:1px solid #c8cccf;
+  border-radius:4px;
+text-decoration:none;
+color:black;
+
+}
+
+#chengji:hover,#kecheng:hover
+{
+background:purple;
+}
+  .pics
+  {
+    display: none;
+  }
+  #liebiao
+{
+  width:220px;
+  display:inline-block;
+  height:150px;
+  float:right;
+  
+  
+ 
+}
+.e
+{
+  display:inline-block;
+   border:1px solid #c8cccf;
+  border-radius:4px;
+  height:30px;
+  user-select: none;
+  background: #FFFAFA ;
+  font-weight: bold
+}
+#zhuxiao
+{
+  text-decoration:none;
+}
+.e1
+{
+  display:inline-block;
+   border:1px solid #c8cccf;
+  border-radius:4px;
+  width:180px;
+  height:30px;
+  background: #FFFAFA ;
+  font-weight: bold
+}
+body{
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
+  background-size:100% 100%;
+}
+#xuehao
+{
+  margin:7px 0px 0px 0px;
+}
+#banji
+{
+  margin:7px 0px 0px 0px;
+}
+#xueyuan
+{
+ margin:7px 0px 0px 0px;
+}
+
+#chaxun
+{
+  
+  
+  
+    
+}
+  #display
+{
+  width:350px;
+  height:400px;
+  position:relative;
+  top:250px;
+  margin:0 auto
+  
+}
+#pic
+{
+  width:130px;
+  height:150px;
+  background: #FFFAFA;
+  
+  
+}
+  
+  #logname
+{
+  display:inline-block;
+  background: #FFFAFA;
+  position:relative;
+  
+  
+}
+#user
+{
+  display:inline-block;
+  background: #FFFAFA;
+  position:relative;
+  
+}
+#zhuxiao
+{
+  display:inline-block;
+  border:1px solid #c8cccf;
+  border-radius:4px;
+  position:relative;
+  left:20px;
+  background: #FFFAFA;
+}
+#log
+{
+  
+  margin:0 auto
+  
+}
+#a
+{
+  display:inline-block;
+  border:1px solid #c8cccf;
+  border-radius:4px;
+}
+ 
+</style>
+  
+</head><body background="/photo/background.jpg"><div id="log"> <div id="a"><div id="logname">登录名:</div><div id="user"><%= studentnumber %></div> </div><a id="zhuxiao" href='http://localhost:3000/'>注销</a> </div>
+
+<div id="display">
+  <div id="shang">
+  <img id="pic" alt='暂无' src='<%= imgpath %>'>
+  <div id="liebiao">
+    <div id="name"><div class="e">姓名</div><div  id='w' class="e1"><%= studentname %></div></div>
+    <div id="xuehao"><div class="e">学号</div><div  id='e'class="e1"><%= studentnumber %></div></div>
+    <div id="banji"><div class="e">班级</div><div id='r'class="e1"> <%= Class %></div></div>
+    <div id="xueyuan"><div class="e">学院</div><div id='t'class="e1"> <%= studentinstitute %></div> </div> 
+  </div>
+    
+  
+    </div>
+ <div id="query"><a id='chengji' href='/student/chengji'>成绩</a></div>
+   <!--<div id='reset'background=>修改密码</div>
+  <div id='p1' contenteditable="true" class='e1'></div>
+  <div id='p2' contenteditable="true" class='e1'></div>-->
+  <!--<div id='edit' onclick='edit()' class='e'>修改信息</div>
+  <div id='editpic' onclick='Click()' class='e'>修改图片</div>-->
+</div>
+<input type='file' id='pics' class='pics'>
+
+
+
+<script>
+  function change()
+{
+  var a=document.getElementById('pics')
+  
+  /*if(a.files[0].type!='jpg')
+  {
+    alert('不是照片')
+
+  }*/
+
+  var formData=new FormData();
+  formData.append('happy',a.files[0])
+  var xhr = new XMLHttpRequest()
+  xhr.open('post', '/', true)
+  xhr.send(formData)
+  document.getElementById('editpic').onclick=Click
+  var ip=document.getElementById('pics')
+  ip.innerHTML='确认修改'
+
+}
+  function Click()
+  {
+    var ip=document.getElementById('pics')
+    ip.click()
+    document.getElementById('editpic').onclick=change
+    ip.innerHTML='修改图片'
+  }
+</script>
+
+      </body>
+      
+      </html>

@@ -1,0 +1,303 @@
+
+<script type="text/javascript">
+	function jidian(a)
+	{
+		if(a>=90)
+		{
+			return 4.0
+		}
+		else if(a>=85)
+		{
+			return 3.7
+		}
+		else if(a>=80)
+		{
+			return 3.4
+		}
+		else if(a>=75)
+		{
+			return 3.1
+		}
+		else if(a>=70)
+		{
+			return 2.8
+		}
+		else if(a>=65)
+		{
+			return 2.3
+		}
+		else if(a>=60)
+		{
+			return 2.0
+		}
+		else{
+			return 0;
+		}
+
+	}
+	function altRows(id)
+	{
+		if(document.getElementsByTagName){  
+			
+			var table = document.getElementById(id);  
+			var rows = table.getElementsByTagName("tr"); 
+			 
+			for(i = 0; i < rows.length; i++){          
+				if(i % 2 == 0){
+					rows[i].className = "evenrowcolor";
+				}else{
+					rows[i].className = "oddrowcolor";
+				}      
+			}
+		}
+	}
+		
+	
+	 
+	window.onload=function(){
+		altRows('alternatecolor');
+	}
+  var status=0;
+function edit()
+{
+  
+    
+  var table=document.getElementById("alternatecolor")
+  var length=document.getElementById("alternatecolor").getElementsByTagName('tr').length-1;
+      if(status==0)
+        {
+  for(var i=0;i<length;i++)
+    {
+      document.getElementById("alternatecolor").getElementsByTagName('tr')[1+i].getElementsByTagName('td')[1].contentEditable="true"
+    }
+          
+       document.getElementById('edit').innerHTML='确认修改'
+      status=1;
+      return
+    }
+
+  if(status==1)
+    {
+      var a=[]
+      for(var i=0;i<length;i++)
+    {
+      var p=[]
+      p.push(document.getElementById("alternatecolor").getElementsByTagName('tr')[1+i].getElementsByTagName('td')[0].innerHTML)
+      p.push(parseFloat(document.getElementById("alternatecolor").getElementsByTagName('tr')[1+i].getElementsByTagName('td')[1].innerHTML))
+      a.push(p)
+      
+    }
+	var xhr = new XMLHttpRequest()
+      xhr.onreadyStateChange = function () {
+        if (xhr.readystate === 4) {
+          if (xhr.status === 304 || (xhr.status >= 200 && xhr.status < 300)) {
+            console.log('type: success, result: ', xhr.responseText)
+          } else {
+            console.log('type: error, errCode:', xhr.status)
+          }
+        }
+      }
+      a=JSON.stringify(a)
+       xhr.open('post', '/teacher/student/edit', true)
+      xhr.setRequestHeader("Content-Type","application/json");
+      
+      xhr.send(a)
+      document.getElementById('edit').innerHTML='修改'
+      status=0;
+      
+        
+      }
+	}
+    
+
+	</script>
+	 
+	 
+	
+	<style type="text/css">
+	.gao
+	{
+		text-align:center;
+	}
+	.gou
+	{
+		width:20px;
+		height:20px;
+	}
+	
+		#a
+	{
+	 margin:50px 0px 0px 0px
+	}
+	
+	#b th {
+		border-width: 1px;
+		padding: 8px;
+		border-style: solid;
+		border-color: #a9c6c9;
+		width:80px;
+	}
+	#b
+	{
+		background-color:#c3dde0;
+    }
+    body{
+        -webkit-user-select:none;
+        -moz-user-select:none;
+        -ms-user-select:none;
+        user-select:none;
+        background-size:100% 100%;
+    }
+	table {
+		font-family: verdana,arial,sans-serif;
+		font-size:11px;
+		color:#333333;
+		border-width: 1px;
+		border-color: #a9c6c9;
+		border-collapse: collapse;
+	}
+	table.altrowstable th  {
+		border-width: 1px;
+		padding: 8px;
+		border-style: solid;
+		border-color: #a9c6c9;
+		width:150px;
+	}
+	table td {
+		border-width: 1px;
+		padding: 8px;
+		border-style: solid;
+		border-color: #a9c6c9;
+	}
+	.oddrowcolor{
+		background-color:#d4e3e5;
+	}
+	.evenrowcolor{
+		background-color:#c3dde0;
+	}
+	#alternatecolor
+	{
+		position: relative;
+		margin:0 auto;
+		
+	}
+	#a
+	{
+	 margin:400px 0px 0px 0px
+	}
+	</style>
+	 
+	 
+	<body background="/photo/background.jpg">
+	<div>
+	<table class="altrowstable" id="alternatecolor">
+	<tr>
+		<th>课程名称</th><th>分数</th><th>学分</th><th>绩点</th>
+	<th>学分统计</th>
+</tr>
+	
+		
+	
+		
+	
+	</table>
+    
+	</div>
+	
+	<div id='a'>
+		<table id='b'>
+		
+		<tr>
+		<th>课程类型</th><th>通过合计</th><th>未过合计</th>
+	</tr>
+			<tr>
+		<td>必修</td><td></td><td></td>
+	</tr>
+			<tr>
+		<td>选修</td><td id='guo'></td><td id='weiguo'></td>
+	</tr>
+			<tr>
+		<td>总绩点</td><td colspan="2">12</td>
+	</tr>
+			
+		</table>
+	</div>
+	</body>
+	<script>
+	 function xuefengjisuan()
+	{
+		var jsxf=0
+		var xf=0
+		
+		var A=document.getElementById("alternatecolor").getElementsByTagName('tr').length-1
+		console.log(A)
+		console.log(document.getElementById("alternatecolor").getElementsByTagName('tr')[1].getElementsByTagName('td')[4].getElementsByTagName('input')[0].checked)
+		
+		var weiguo=0
+		
+		for(var i=0 ; i<A;i++)
+		{
+			if(parseFloat(document.getElementById("alternatecolor").getElementsByTagName('tr')[1+i].getElementsByTagName('td')[3].innerHTML)==0)
+			{
+				weiguo++
+			}
+			if( document.getElementById("alternatecolor").getElementsByTagName('tr')[1+i].getElementsByTagName('td')[4].getElementsByTagName('input')[0].checked)
+			{
+				
+				
+				
+				
+				jsxf=parseFloat(document.getElementById("alternatecolor").getElementsByTagName('tr')[1+i].getElementsByTagName('td')[3].innerHTML)*parseFloat(document.getElementById("alternatecolor").getElementsByTagName('tr')[1+i].getElementsByTagName('td')[2].innerHTML)+jsxf
+				xf=xf+parseFloat(document.getElementById("alternatecolor").getElementsByTagName('tr')[1+i].getElementsByTagName('td')[2].innerHTML)
+				
+			}
+		 
+		document.getElementById('b').getElementsByTagName('tr')[3].getElementsByTagName('td')[1].innerHTML=jsxf/xf
+		document.getElementById('weiguo').innerHTML=weiguo
+		document.getElementById('guo').innerHTML=A-weiguo;
+		
+		
+		}  
+	}
+		</script>
+	
+	<script>
+		
+		var a=JSON.parse( '<%- JSON.stringify(jilu) %>')
+		
+	function dynamic(a)
+	{
+		
+		var table=document.getElementById("alternatecolor")
+		for(var i=0;i<a.length;i++)
+			{
+				var tr=document.createElement('tr')
+				var td1=document.createElement('td')
+				td1.innerHTML=a[i].subjectname
+				var td2=document.createElement('td')
+				td2.innerHTML=a[i].score
+				var td3=document.createElement('td')
+				td3.innerHTML=a[i].xuefen
+			 
+				var td4=document.createElement('td')
+				td4.innerHTML=jidian(a[i].score)
+				
+				var td5=document.createElement('td')
+				td5.class='gao'
+				td5.innerHTML="<input type='checkbox' name='check' class='gou' onclick='xuefengjisuan()' checked='true'>";
+				
+				tr.appendChild(td1)
+				tr.appendChild(td2)
+				tr.appendChild(td3)
+				tr.appendChild(td4)
+				tr.appendChild(td5)
+				console.log(tr)
+				table.appendChild(tr)
+				
+			}
+	}
+		dynamic(a)
+		console.log(document.getElementById("alternatecolor"))
+		xuefengjisuan()
+			</script>
+		 

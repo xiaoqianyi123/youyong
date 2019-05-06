@@ -1,0 +1,261 @@
+
+<script type="text/javascript">
+   
+    var K=JSON.parse( '<%- JSON.stringify(data) %>')
+    function drop()
+    {
+       
+        var a=document.getElementById("alternatecolor")
+       
+        var p=a.getElementsByTagName('tr')
+        var mm=p.length
+       
+        for(var i=2;i<mm;i++)
+        {
+           
+            a.removeChild(p[2])
+        }
+    }
+    
+    
+    function pp(K,w)
+      {
+         
+        var x=function()
+        {
+            window.location.href='/teacher/student?'+`account=${K[w].studentnumber}`
+            
+        }
+        return x;
+
+      }
+
+  function altRows(id){
+      if(document.getElementsByTagName){  
+          
+          var table = document.getElementById(id);  
+          var rows = table.getElementsByTagName("tr"); 
+           
+          for(i = 0; i < rows.length; i++){          
+              if(i % 2 == 0){
+                  rows[i].className = "evenrowcolor";
+              }else{
+                  rows[i].className = "oddrowcolor";
+              }      
+          }
+      }
+    }
+    function tongtai(K)
+  {
+      drop()
+      
+    var Class=document.getElementById('Class')
+    var ins=document.getElementById('institute') 
+    var Numclass=Class.selectedIndex
+    var Numins=ins.selectedIndex
+    
+    var table=document.getElementById("alternatecolor")
+    var w=0;
+    console.log('hahahahahahhahaahha')
+    
+    for(;w<K.length;w++)
+    {
+       /* console.log(Class.getElementsByTagName('option')[Numclass].innerHTML)
+        console.log(K[w].Class)
+        console.log(ins.getElementsByTagName('option')[Numins].innerHTML)
+        console.log()*/
+        /*console.log(ins.getElementsByTagName('option')[Numins].innerHTML)
+        console.log(K[w].studentinstitute)
+        console.log(3213232)*/
+     //console.log( ((Class.getElementsByTagName('option')[Numclass].innerHTML=='all')||(Class.getElementsByTagName('option')[Numclass].innerHTML==K[w].Class))&&((ins.getElementsByTagName('option')[Numins].innerHTML==K[w].studentinstitute)||(ins.getElementsByTagName('option')[Numins].innerHTML=='all')))
+      //console.log(((Class.getElementsByTagName('option')[Numclass].innerHTML=='all')||(Class.getElementsByTagName('option')[Numclass].innerHTML==K[w].Class))) 
+        if(((Class.getElementsByTagName('option')[Numclass].innerHTML=='all')||(Class.getElementsByTagName('option')[Numclass].innerHTML==K[w].Class))&&((ins.getElementsByTagName('option')[Numins].innerHTML==K[w].studentinstitute)||(ins.getElementsByTagName('option')[Numins].innerHTML=='all')))
+        {
+    var a=document.createElement('tr')
+    var b=document.createElement('td')
+    
+    var c=document.createElement('td')
+    var d=document.createElement('td')
+    var e=document.createElement('td')
+    var f=document.createElement('td')
+    var g=document.createElement('td')
+    b.innerHTML=K[w].studentnumber;
+    
+     c.innerHTML=K[w].studentname;
+      d.innerHTML=K[w].Class;
+      e.innerHTML=K[w].studentinstitute;
+      f.innerHTML=K[w].subjectname;
+      g.innerHTML=K[w].score
+      a.appendChild(b);
+      a.appendChild(c);
+      a.appendChild(d);
+      a.appendChild(e)
+      a.appendChild(f)
+      a.appendChild(g)
+
+     
+      a.onclick=pp(K,w)
+      
+      table.appendChild(a)
+      altRows('alternatecolor');
+    }
+}
+  }
+ /*window.onload=function(){
+    altRows('alternatecolor');
+
+  }*/
+  
+   
+  
+
+  
+  </script>
+   
+   
+  <!-- CSS goes in the document HEAD or added to your external stylesheet -->
+  <style type="text/css">
+    body{
+        -webkit-user-select:none;
+        -moz-user-select:none;
+        -ms-user-select:none;
+        user-select:none;
+        background-size:100% 100%;
+    }
+    .gao
+  {
+    text-align:center;
+  }
+  .gou
+  {
+    width:20px;
+    height:20px;
+  }
+  
+    #a
+  {
+   margin:50px 0px 0px 0px
+  }
+  
+  #b th {
+      border-width: 1px;
+      padding: 8px;
+      border-style: solid;
+      border-color: #a9c6c9;
+    width:80px;
+  }
+  #b
+  {
+    background-color:#c3dde0;
+  }
+  table {
+      font-family: verdana,arial,sans-serif;
+      font-size:11px;
+      color:#333333;
+      border-width: 1px;
+      border-color: #a9c6c9;
+      border-collapse: collapse;
+  }
+  table.altrowstable th  {
+      border-width: 1px;
+      padding: 8px;
+      border-style: solid;
+      border-color: #a9c6c9;
+    width:150px;
+  }
+  table td {
+      border-width: 1px;
+      padding: 8px;
+      border-style: solid;
+      border-color: #a9c6c9;
+  }
+  .oddrowcolor{
+      background-color:#d4e3e5;
+  }
+  .evenrowcolor{
+      background-color:#c3dde0;
+  }
+  #alternatecolor
+  {
+    position: relative;
+    margin:0 auto;
+  }
+  </style>
+   
+   
+  <body background="/photo/background.jpg">
+  <div  
+  >
+  <table class="altrowstable" id="alternatecolor">
+  <tr>
+    <th>学号</th><th>姓名</th><th>班级</th><th>学院</th><th>课程</th><th>分数</th>
+  </tr>
+  
+    <tr>
+      <th></th><th></th><th><select id='Class' onchange="tongtai(K)"></select></th><th><select id='institute' onchange="tongtai(K)"></select></th><th></th><th></th>
+  </tr>
+  
+ 
+  </table>
+
+  </div>
+  </body>
+  
+
+  <script>
+   function B(a,b)
+   {
+      for(var i=0;i<a.length;i++) 
+      {
+          if(b==a[i])
+          {
+              return false
+          }
+      }
+      a.push(b)
+      return true
+   }
+  </script>
+
+  <script>
+    var classlist=[]
+    var inslist=[]
+    var Class=document.getElementById('Class')
+    //Class.onchange=tongtai;
+    var ins=document.getElementById('institute')
+    //ins.onchange=tongtai;
+    for(var i=0;i<K.length;i++)
+    {
+        B(classlist,K[i].Class)
+       
+    }
+    for(var i=0;i<K.length;i++)
+    {
+        B(inslist,K[i].studentinstitute)
+        
+    }
+    var op=document.createElement('option')
+    op.innerHTML='all'
+    Class.appendChild(op)
+    for(var i=0; i<classlist.length;i++)
+    {
+        var op=document.createElement('option')
+        op.innerHTML=classlist[i]
+        Class.appendChild(op)
+    }
+    var op=document.createElement('option')
+    op.innerHTML='all'
+    ins.appendChild(op)
+    for(var i=0; i<inslist.length;i++)
+    {
+        var op=document.createElement('option')
+        op.innerHTML=inslist[i]
+        ins.appendChild(op)
+    }
+  </script>
+
+  <script>
+      console.log(document.getElementById('Class'))
+      console.log(document.getElementById('institute'))
+        tongtai(K)
+      </script>
